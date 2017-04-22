@@ -1,0 +1,304 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/olalonde/follow-redirects">follow-redirects (v1.2.3)</a>
+</h1>
+<h4>HTTP and HTTPS modules that follow redirects.</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.follow-redirects">module follow-redirects</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">follow-redirects.</span>maxRedirects</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">follow-redirects.</span>http</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">follow-redirects.</span>https</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.follow-redirects.http">module follow-redirects.http</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.follow-redirects.http.get">
+            function <span class="apidocSignatureSpan">follow-redirects.http.</span>get
+            <span class="apidocSignatureSpan">(options, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.follow-redirects.http.request">
+            function <span class="apidocSignatureSpan">follow-redirects.http.</span>request
+            <span class="apidocSignatureSpan">(options, callback)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.follow-redirects.https">module follow-redirects.https</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.follow-redirects.https.get">
+            function <span class="apidocSignatureSpan">follow-redirects.https.</span>get
+            <span class="apidocSignatureSpan">(options, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.follow-redirects.https.request">
+            function <span class="apidocSignatureSpan">follow-redirects.https.</span>request
+            <span class="apidocSignatureSpan">(options, callback)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.follow-redirects" id="apidoc.module.follow-redirects">module follow-redirects</a></h1>
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.follow-redirects.http" id="apidoc.module.follow-redirects.http">module follow-redirects.http</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.follow-redirects.http.get" id="apidoc.element.follow-redirects.http.get">
+        function <span class="apidocSignatureSpan">follow-redirects.http.</span>get
+        <span class="apidocSignatureSpan">(options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">get = function (options, callback) {
+		var request = wrappedProtocol.request(options, callback);
+		request.end();
+		return request;
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ methods that behave identically to those found on the native [http](https://nodejs.org/api/http.html#http_http_request_options_callback
+) and [https](https://nodejs.org/api/https.html#https_https_request_options_callback)
+ modules, with the exception that they will seamlessly follow redirects.
+
+```javascript
+var http = require('follow-redirects').http;
+var https = require('follow-redirects').https;
+
+http.<span class="apidocCodeKeywordSpan">get</span>('http://bit.ly/900913', function (response) {
+  response.on('data', function (chunk) {
+    console.log(chunk);
+  });
+}).on('error', function (err) {
+  console.error(err);
+});
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.follow-redirects.http.request" id="apidoc.element.follow-redirects.http.request">
+        function <span class="apidocSignatureSpan">follow-redirects.http.</span>request
+        <span class="apidocSignatureSpan">(options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">request = function (options, callback) {
+		if (typeof options === 'string') {
+			options = url.parse(options);
+			options.maxRedirects = exports.maxRedirects;
+		} else {
+			options = Object.assign({
+				maxRedirects: exports.maxRedirects,
+				protocol: protocol
+			}, options);
+		}
+		assert.equal(options.protocol, protocol, 'protocol mismatch');
+		debug('options', options);
+
+		return new RedirectableRequest(options, callback);
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+});
+```
+
+You can inspect the final redirected URL through the `responseUrl` property on the `response`.
+If no redirection happened, `responseUrl` is the original request URL.
+
+```javascript
+https.<span class="apidocCodeKeywordSpan">request</span>({
+  host: 'bitly.com',
+  path: '/UHfDGO',
+}, function (response) {
+  console.log(response.responseUrl);
+  // 'http://duckduckgo.com/robots.txt'
+});
+```
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.follow-redirects.https" id="apidoc.module.follow-redirects.https">module follow-redirects.https</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.follow-redirects.https.get" id="apidoc.element.follow-redirects.https.get">
+        function <span class="apidocSignatureSpan">follow-redirects.https.</span>get
+        <span class="apidocSignatureSpan">(options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">get = function (options, callback) {
+		var request = wrappedProtocol.request(options, callback);
+		request.end();
+		return request;
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ methods that behave identically to those found on the native [http](https://nodejs.org/api/http.html#http_http_request_options_callback
+) and [https](https://nodejs.org/api/https.html#https_https_request_options_callback)
+ modules, with the exception that they will seamlessly follow redirects.
+
+```javascript
+var http = require('follow-redirects').http;
+var https = require('follow-redirects').https;
+
+http.<span class="apidocCodeKeywordSpan">get</span>('http://bit.ly/900913', function (response) {
+  response.on('data', function (chunk) {
+    console.log(chunk);
+  });
+}).on('error', function (err) {
+  console.error(err);
+});
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.follow-redirects.https.request" id="apidoc.element.follow-redirects.https.request">
+        function <span class="apidocSignatureSpan">follow-redirects.https.</span>request
+        <span class="apidocSignatureSpan">(options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">request = function (options, callback) {
+		if (typeof options === 'string') {
+			options = url.parse(options);
+			options.maxRedirects = exports.maxRedirects;
+		} else {
+			options = Object.assign({
+				maxRedirects: exports.maxRedirects,
+				protocol: protocol
+			}, options);
+		}
+		assert.equal(options.protocol, protocol, 'protocol mismatch');
+		debug('options', options);
+
+		return new RedirectableRequest(options, callback);
+	}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+});
+```
+
+You can inspect the final redirected URL through the `responseUrl` property on the `response`.
+If no redirection happened, `responseUrl` is the original request URL.
+
+```javascript
+https.<span class="apidocCodeKeywordSpan">request</span>({
+  host: 'bitly.com',
+  path: '/UHfDGO',
+}, function (response) {
+  console.log(response.responseUrl);
+  // 'http://duckduckgo.com/robots.txt'
+});
+```
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
